@@ -1,2 +1,3 @@
-# geeknahi
-A simple discord bot deployment for the core course cloud project :(
+# Jammy Bun
+A sample Discord Bot for Auto-Moderation
+Prepared for the Cloud Project lol

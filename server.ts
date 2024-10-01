@@ -5,7 +5,7 @@ import express from "express"
 dotenv.config();
 
 const app = express();
-const port = 16969;
+const port = process.env.PORT;
 
 
 app.get("/", (req: express.Request, res: express.Response) => {
