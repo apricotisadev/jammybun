@@ -12,6 +12,7 @@ export class Bot {
         this.client = new Client({
             intents: [
                 GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildPresences,
                 GatewayIntentBits.MessageContent,
                 GatewayIntentBits.GuildMembers,
                 GatewayIntentBits.GuildMessages
@@ -26,6 +27,7 @@ export class Bot {
         updateSlashCommands(this)
         this.onReady();
         this.onMemberJoin();
+        this.onMemberLeave();
     }
 
     private onReady() {
@@ -57,7 +59,26 @@ export class Bot {
     }
 
     private onMemberLeave() {
+        this.client.on(Events.GuildMemberRemove, async (member: GuildMember) => {
+            let channelId: string = await getLogChannel(member.guild.id);
+            if (channelId){
+                const logEmbed = new EmbedBuilder()
+                        .setTitle("Member Left")
+                        .setThumbnail(member.user.avatarURL())
+                        .setColor(0xe57373)
+                        .setFields([
+                            {name: "User", value: `${member.user.username}`},
+                            {name: "Created At", value: `<t:${Math.floor(member.user.createdTimestamp/1000)}:D>`},
+                            {name: "Left At", value: `<t:${Math.floor(Date.now()/1000)}:D>`}
+                        ])
 
+                const channel: any = await member.guild.channels.fetch(channelId);
+                channel.send({ 
+                    embeds: [logEmbed]               
+                })
+            }
+        })
+ 
         
     }
 

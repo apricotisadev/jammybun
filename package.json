@@ -1,7 +1,7 @@
 {
-  "name": "geeknahi",
-  "version": "1.0.0",
-  "description": "",
+  "name": "jammybun",
+  "version": "1.0.1",
+  "description": "A Sample Discord Bot",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.ts",
