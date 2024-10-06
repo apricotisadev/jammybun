@@ -27,4 +27,5 @@ process.on('uncaughtException', (err) => {
     console.error('Error Message:', err.message); // Log the error message
     if (bot && bot.hasClient() ) bot.stop();
     reportShutdown(err);
+    server.close();
 });
