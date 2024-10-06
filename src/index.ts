@@ -1,6 +1,7 @@
 import { Client, EmbedBuilder, Events, GatewayIntentBits, GuildMember, Partials, SlashCommandBuilder } from "discord.js";
 import { updateSlashCommands } from "./utils/commandRegister";
 import { getLogChannel } from "./utils/db/getFuncs";
+import reportShutdown from "./utils/reportShutdown.ts";
 
 export class Bot {
     public commands: Array<string> = [];
@@ -85,8 +86,15 @@ export class Bot {
     public getClient() {
         return this.client;
     }
+    public hasClient() {
+        return this.client!==null || this.client!==undefined;
+    }
     
     public start (token: string){
         this.client.login(token);
+    }
+    public stop () {
+        this.client.destroy();
+        this.client = null;
     }
 }
